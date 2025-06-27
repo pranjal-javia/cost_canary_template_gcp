@@ -1,0 +1,5 @@
+# Copy this file to "terraform.tfvars" and fill in the value below.
+
+# The ID of the GCP Project you want to grant Cost Canary access to.
+# You can find this on your Google Cloud Console dashboard.
+gcp_project_id = "your-gcp-project-id"
