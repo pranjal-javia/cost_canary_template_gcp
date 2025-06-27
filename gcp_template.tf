@@ -62,9 +62,7 @@ resource "google_project_iam_member" "grant_cost_permissions" {
 resource "google_service_account_iam_member" "allow_impersonation" {
   service_account_id = google_service_account.cost_canary_sa.name
   role               = "roles/iam.serviceAccountTokenCreator"
-  # This member is hardcoded to your application's service account.
-  # TODO: Replace the email below with your actual service account principal.
-  member             = "cost-canary-primary-service-ac@cost-canary.iam.gserviceaccount.com"
+  member             = "serviceAccount:cost-canary-primary-service-ac@cost-canary.iam.gserviceaccount.com"
 }
 
 # -----------------------------------------------------------------------------
