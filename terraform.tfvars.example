@@ -1,5 +1,36 @@
-# Copy this file to "terraform.tfvars" and fill in the value below.
+# Copy this file to "terraform.tfvars" and fill in your organization details below.
 
-# The ID of the GCP Project you want to grant Cost Canary access to.
+# ============================================================================
+# REQUIRED: Your GCP Project Information
+# ============================================================================
+
+# The ID of the GCP Project where the Cost Canary service account will be created.
+# This is typically your main project or a dedicated project for service accounts.
 # You can find this on your Google Cloud Console dashboard.
 gcp_project_id = "your-gcp-project-id"
+
+# ============================================================================
+# REQUIRED: Your GCP Organization Information  
+# ============================================================================
+
+# Your GCP Organization ID (required for organization-wide cost visibility).
+# Format: "organizations/123456789" (include the "organizations/" prefix)
+# 
+# 🔍 How to find your Organization ID:
+# Method 1: Run this command in Cloud Shell: gcloud organizations list
+# Method 2: Go to Google Cloud Console → IAM & Admin → Settings
+# Method 3: Go to Google Cloud Console → Resource Manager
+organization_id = "organizations/your-org-id-here"
+
+# ============================================================================
+# REQUIRED: Your Billing Account Information
+# ============================================================================
+
+# Your Billing Account ID (required for accessing cost and billing data).
+# Format: "XXXXXX-YYYYYY-ZZZZZZ" (just the ID, no prefix needed)
+#
+# 🔍 How to find your Billing Account ID:
+# Method 1: Run this command in Cloud Shell: gcloud billing accounts list
+# Method 2: Go to Google Cloud Console → Billing → Account Management
+# Method 3: Look for "Account ID" in your billing account details
+billing_account_id = "your-billing-account-id-here"
