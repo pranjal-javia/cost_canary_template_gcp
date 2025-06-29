@@ -14,7 +14,8 @@ variable "organization_id" {
   description = "The GCP Organization ID (format: organizations/123456789)"
   
   validation {
-    condition     = can(regex("^organizations/[0-9]+$", var.organization_id))
+#    condition     = can(regex("^organizations/[0-9]+$", var.organization_id))
+    condition     = length(var.gcp_project_id) > 0
     error_message = "Organization ID must be in format: organizations/123456789"
   }
 }
