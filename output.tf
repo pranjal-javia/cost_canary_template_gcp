@@ -22,7 +22,7 @@ output "infrastructure_manager_deployment_url" {
 output "setup_summary" {
   value = {
     service_account = google_service_account.cost_canary_sa.email
-    organization = data.google_organization.org.display_name
+    organization = data.google_organization.org.name
     project = data.google_project.current.name
     deployment_method = "Infrastructure Manager"
     status = "✅ Successfully deployed via Infrastructure Manager"
