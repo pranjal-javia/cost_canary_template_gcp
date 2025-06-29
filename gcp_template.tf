@@ -17,31 +17,6 @@ provider "google" {
 }
 
 # -----------------------------------------------------------------------------
-# VARIABLES
-# -----------------------------------------------------------------------------
-
-variable "gcp_project_id" {
-  type        = string
-  description = "The GCP Project ID where the Cost Canary service account will be created."
-}
-
-variable "organization_id" {
-  type        = string
-  description = "The GCP Organization ID (format: organizations/123456789)"
-}
-
-variable "billing_account_id" {
-  type        = string
-  description = "The Billing Account ID for cost data access"
-}
-
-variable "cost_canary_service_account" {
-  type        = string
-  description = "Cost Canary's service account email for impersonation"
-  default     = "cost-canary-primary-service-ac@cost-canary.iam.gserviceaccount.com"
-}
-
-# -----------------------------------------------------------------------------
 # DATA SOURCES
 # -----------------------------------------------------------------------------
 
@@ -119,62 +94,4 @@ resource "google_organization_iam_member" "monitoring_viewer" {
   org_id = data.google_organization.org.org_id
   role   = "roles/monitoring.viewer"
   member = google_service_account.cost_canary_sa.member
-}
-
-# -----------------------------------------------------------------------------
-# OUTPUTS
-# -----------------------------------------------------------------------------
-
-output "cost_canary_service_account_email" {
-  value       = google_service_account.cost_canary_sa.email
-  description = "The email of the service account created for Cost Canary"
-}
-
-output "organization_id" {
-  value       = data.google_organization.org.org_id
-  description = "The organization ID where permissions were granted"
-}
-
-output "billing_account_id" {
-  value       = var.billing_account_id
-  description = "The billing account ID with granted permissions"
-}
-
-output "setup_summary" {
-  value = <<-EOT
-    ✅ Cost Canary Setup Complete!
-    
-    📧 Service Account: ${google_service_account.cost_canary_sa.email}
-    🏢 Organization: ${data.google_organization.org.display_name} (${data.google_organization.org.org_id})
-    💳 Billing Account: ${var.billing_account_id}
-    📊 Project: ${data.google_project.current.name} (${var.gcp_project_id})
-    
-    🔐 Permissions Granted:
-    ▪️ Organization Viewer (across entire org)
-    ▪️ Folder Viewer (for folder structure)
-    ▪️ Billing Viewer (for cost data)
-    ▪️ Billing Costs Manager (for detailed cost analysis)
-    ▪️ BigQuery User & Data Viewer (for billing export queries)
-    ▪️ Monitoring Viewer (for usage metrics)
-    ▪️ Service Account Token Creator (for Cost Canary impersonation)
-    
-    🎯 Cost Canary can now securely access cost data across your entire organization!
-  EOT
-  description = "Summary of the setup and permissions granted"
-}
-
-output "next_steps" {
-  value = <<-EOT
-    🚀 Next Steps:
-    
-    1. Return to the Cost Canary onboarding page
-    2. Click "VERIFY" to test the connection
-    3. Configure your cost monitoring preferences
-    
-    ⚠️  Important Notes:
-    - Ensure your billing export to BigQuery is configured for detailed cost analysis
-    - The service account has organization-wide read access for comprehensive monitoring
-    - All permissions follow the principle of least privilege for security
-  EOT
-  description = "Instructions for completing the setup"
 }
