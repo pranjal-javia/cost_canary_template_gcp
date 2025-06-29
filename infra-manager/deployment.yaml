@@ -1,0 +1,31 @@
+# infra-manager/deployment.yaml
+apiVersion: config.cloud.google.com/v1beta1
+kind: GitSource
+metadata:
+  name: cost-canary-terraform
+spec:
+  repo: "https://github.com/pranjal-javia/cost_canary_template_gcp"
+  directory: "/"
+  ref: "main"
+---
+apiVersion: config.cloud.google.com/v1beta1
+kind: Preview
+metadata:
+  name: cost-canary-preview
+spec:
+  terraformBlueprint:
+    source:
+      git:
+        repo: "https://github.com/pranjal-javia/cost_canary_template_gcp"
+        directory: "/"
+        ref: "main"
+    inputValues:
+      gcp_project_id:
+        inputType: "REQUIRED"
+        description: "Your GCP Project ID"
+      organization_id:
+        inputType: "REQUIRED"
+        description: "Your Organization ID (organizations/123456789)"
+      billing_account_id:
+        inputType: "REQUIRED"
+        description: "Your Billing Account ID"
