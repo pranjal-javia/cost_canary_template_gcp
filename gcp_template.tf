@@ -83,11 +83,11 @@ resource "google_project_iam_member" "bigquery_data_viewer" {
 }
 
 # 5. Allow Cost Canary's service account to impersonate this service account
-resource "google_service_account_iam_member" "allow_impersonation" {
-  service_account_id = google_service_account.cost_canary_sa.name
-  role               = "roles/iam.serviceAccountTokenCreator"
-  member             = "serviceAccount:${var.cost_canary_service_account}"
-}
+#resource "google_service_account_iam_member" "allow_impersonation" {
+#  service_account_id = google_service_account.cost_canary_sa.name
+#  role               = "roles/iam.serviceAccountTokenCreator"
+#  member             = "serviceAccount:${var.cost_canary_service_account}"
+#}
 
 # 6. Additional permissions for comprehensive cost monitoring
 resource "google_organization_iam_member" "monitoring_viewer" {
